@@ -1,0 +1,25 @@
+name: Workflow to deploy a LAMP App on Azure - Quickstart template
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy-resources-to-azure:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout master
+          uses: actions/checkout@v3
+
+        - name: Deploy a LAMP App to Azure
+          uses: ./.github/actions/quickstart_template
+          with:
+            admin-username: ${{secrets.ADMIN_USERNAME}}
+            admin-password: ${{secrets.ADMIN_PASSWORD}}
+            client-id: ${{ secrets.AZURE_CLIENT_ID }}
+            tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+            subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+            resource-group-name: ${{secrets.AZURE_RG}}
