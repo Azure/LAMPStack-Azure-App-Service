@@ -1,5 +1,5 @@
-name: 'Deploy a LAMP App to Azure - Custom Template'
-description: 'This action helps create an LAMP App on Azure'
+name: 'Deploy LAMP stack on Azure App service - Quickstart Template'
+description: 'This action helps deploy LAMP stack to Azure App service'
 branding:
   icon: 'play-circle'
   color: 'blue'
@@ -42,19 +42,20 @@ runs:
       with:
         subscriptionId: ${{ inputs.subscription-id }}
         resourceGroupName: ${{ inputs.resource-group-name }}
-        template: https://raw.githubusercontent.com/vaibbavisk20/deploy_lamp_app/main/vm_template.json
-        parameters: https://raw.githubusercontent.com/vaibbavisk20/deploy_lamp_app/main/vm_parameters.json
+        template: https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/demos/lamp-app/azuredeploy.json
+        parameters: https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/demos/lamp-app/azuredeploy.parameters.json
                     authenticationType=password
                     mySqlPassword=${{ inputs.admin-password }}
-                    vmDnsName=newdnsvm3
+                    storageAccountNamePrefix=lampappsa
+                    dnsLabelPrefix=dnslabelvm
+                    vmSize=Standard_D2as_v4
                     adminUsername=${{ inputs.admin-username }}
                     adminPasswordOrKey=${{inputs.admin-password}}
-                    location=westus2
         failOnStdErr: false
 
     - name: Fetch deployment record - Run Azure PowerShell inline script
       uses: azure/powershell@v1
       with:
         inlineScript: |
-          Get-AzResourceGroupDeploymentOperation -ResourceGroupName ${{ inputs.resource-group-name }} -DeploymentName "vm_template"
+          Get-AzResourceGroupDeploymentOperation -ResourceGroupName ${{ inputs.resource-group-name }} -DeploymentName "azuredeploy"
         azPSVersion: "latest"

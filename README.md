@@ -1,20 +1,14 @@
-# Deploy a LAMP App to Azure Action
+# Deploy LAMP stack on Azure App Service
 
 ## Description
 
-This GitHub Action automates the deployment of a LAMP (Linux, Apache, MySQL, PHP) stack on an App Service (App). The action provisions the App and deploys the LAMP stack using an ARM template and parameter file.
-
-This template uses the Azure Linux CustomScript extension to deploy a LAMP application on Ubuntu. It creates an Ubuntu VM, does a silent install of MySQL, Apache and PHP, then creates a simple PHP script. Go to /phpinfo.php to see the deployed page.
-
-**Currently, only works for non-Microsoft tenant accounts due to Storage account policy**
+This GitHub Action automates the deployment of a LAMP (Linux, Apache, MySQL, PHP) stack on an Azure App Service. The action provisions the App service and deploys the LAMP stack using an ARM template and parameter file.
 
 [For more information on this quickstart template](https://learn.microsoft.com/en-us/samples/azure/azure-quickstart-templates/lamp-app/)
 
-**This documentation is for v4 of vaibbavisk20/deploy_lamp_app**
+**Note**: Please install the [Configure-Azure-Settings](https://github.com/apps/configure-azure-settings) app from the GitHub Marketplace to populate the below inputs as secrets in your repository
 
 ## Inputs
-
-Please install the Azure OIDC app from the Github Marketplace to populate the below inputs as secrets in your repo
 
 - **client-id** (required): Client ID used for Azure login.
 - **tenant-id** (required): Tenant ID used for Azure login.
@@ -62,7 +56,7 @@ jobs:
           uses: actions/checkout@v3
           
         - name: Deploy a LAMP VM to Azure action
-          uses: vaibbavisk20/deploy_lamp_app@v2
+          uses: Azure/LAMPStack-Azure-App-Service@v1
           with:
             client-id: ${{ secrets.AZURE_CLIENT_ID }}
             tenant-id: ${{ secrets.AZURE_TENANT_ID }}
