@@ -56,7 +56,7 @@ jobs:
           uses: actions/checkout@v3
           
         - name: Deploy a LAMP VM to Azure action
-          uses: Azure/LAMPStack-Azure-App-Service@v1
+          uses: Azure/LAMPStack-Azure-App-Service@v2
           with:
             client-id: ${{ secrets.AZURE_CLIENT_ID }}
             tenant-id: ${{ secrets.AZURE_TENANT_ID }}
